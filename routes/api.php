@@ -1,12 +1,15 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\BookingController;
-use App\Http\Controllers\FlightController;
-use App\Http\Controllers\PlaneController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PlaneController;
+use App\Http\Controllers\StatsController;
+use App\Http\Controllers\FlightController;
+use App\Http\Controllers\BookingController;
+use App\Http\Controllers\GamblingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +31,9 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // Users
 Route::get('/dashboard/user', [UserController::class, 'users']);
 Route::post('/user/delete', [UserController::class, 'delete']);
+Route::get('/user', function () {
+    return Auth::user();
+});
 
 // Flights
 Route::get('/flights', [FlightController::class, 'get_flights'])->name('fligths');
@@ -44,3 +50,10 @@ Route::post('/planes/insert', [PlaneController::class, 'insert']);
 Route::get('/bookings', [BookingController::class, 'get']);
 Route::post('/bookings/insert', [BookingController::class, 'insert']);
 Route::post('/bookings/delete', [BookingController::class, 'delete']);
+
+// Statistics
+Route::get('/stats', [StatsController::class, 'get']);
+
+// Gambling
+Route::get('/gambling/spin', [GamblingController::class, 'spin']);
+Route::get('/gambling/reward', [GamblingController::class, 'win']);

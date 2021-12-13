@@ -21,7 +21,7 @@ class FlightFactory extends Factory
             'gate' => $this->faker->bothify("?##"),
             'boarding_time' => now(),
             'duration' => $this->faker->time(),
-            'ticket_price' => $this->faker->randomFloat(),
+            'ticket_price' => $this->faker->randomFloat(2, 1, 1000),
         ];
     }
 }

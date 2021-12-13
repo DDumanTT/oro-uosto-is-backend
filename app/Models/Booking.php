@@ -16,10 +16,10 @@ class Booking extends Model
         'user_id',
     ];
 
-    // public function flight()
-    // {
-    //     return $this->belongsTo(Flight::class);
-    // }
+    public function flight()
+    {
+        return $this->belongsTo(Flight::class);
+    }
 
     // public function user()
     // {
