@@ -23,10 +23,14 @@ class User extends Authenticatable implements JWTSubject
         'email',
         'password',
         'role',
+        'status',
+        'tickets',
     ];
 
     protected $attributes = [
         'role' => 2,
+        'status' => 0,
+        'tickets' => 0,
     ];
 
     /**
@@ -55,5 +59,11 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function flights()
+    {
+        // return $this->hasMany(Booking::class);
+        return $this->belongsToMany(Flight::class, 'bookings', 'user_id', 'flight_id');
     }
 }

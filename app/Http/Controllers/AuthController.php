@@ -20,7 +20,8 @@ class AuthController extends Controller
             'name' => 'required|string|between:2,20',
             'surname' => 'required|string|between:2,20',
             'email' => 'required|string|email|max:100|unique:users',
-            'password' => 'required|min:3'
+            'password' => 'required|min:3',
+            'role' => '',
         ]);
 
         if ($validator->fails()) {
@@ -36,15 +37,6 @@ class AuthController extends Controller
             'message' => 'User successfully registered',
             'user' => $user
         ], 201);
-        // $user = new User;
-        // $user->name = $request->name;
-        // $user->surname = $request->surname;
-        // $user->email = $request->email;
-        // $user->password = Hash::make($request->password);
-        // $user->save();
-        // return response()->json([
-        //     "message" => "Registration successful",
-        // ], 201);
     }
 
     public function login(Request $request)
@@ -63,19 +55,6 @@ class AuthController extends Controller
         }
 
         return $this->createNewToken($token);
-
-        // $credentials = $request->only(['email', 'password']);
-        //Alternatively
-        /*$credentials = [
-        'email' => $request->email,
-        'password' => $request->password
-        ];
-        */
-        // $token = auth()->attempt($credentials);
-        // return response()->json([
-        //     "message" => "Login Successful",
-        //     "token" => $token
-        // ], 201);
     }
 
     public function logout()
@@ -100,5 +79,12 @@ class AuthController extends Controller
             'expires_in' => auth()->factory()->getTTL() * 60,
             'user' => auth()->user()
         ]);
+    }
+
+    public function change_status(Request $request)
+    {
+        $user = User::find($request->id);
+        $user->status = $request->status;
+        $user->save();
     }
 }

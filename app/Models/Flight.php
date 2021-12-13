@@ -19,4 +19,15 @@ class Flight extends Model
         'duration',
         'ticket_price',
     ];
+
+    public function planes()
+    {
+        return $this->belongsToMany(Plane::class, 'plane_flight', 'plane_id', 'flight_id');
+    }
+
+    public function users()
+    {
+        // return $this->hasMany(Booking::class);
+        return $this->belongsToMany(User::class, 'bookings', 'flight_id', 'user_id');
+    }
 }

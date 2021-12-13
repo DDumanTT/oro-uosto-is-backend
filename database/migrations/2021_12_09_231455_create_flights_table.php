@@ -25,7 +25,7 @@ class CreateFlightsTable extends Migration
             $table->time("duration");
             $table->double("ticket_price");
             // Relation to ticket reservation
-            // Relation to Airplane
+            // $table->foreignId('plane_id')->index()->constrained()->cascadeOnDelete();
             // Relation to contract
         });
     }
